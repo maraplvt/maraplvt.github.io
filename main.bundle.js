@@ -57377,30 +57377,30 @@ var NgFitTextDirective = (function () {
         this.parent = this.element.nativeElement.parentNode;
         this.domElem = this.element.nativeElement;
         this.domElemStyle = this.element.nativeElement.style;
-        this.computed = window.getComputedStyle(this.domElem, null);
         this.newlines = this.element.nativeElement.children.length || 1;
         // attributes init
         this.loadDelay = this.fittextLoadDelay || config.loadDelay;
+        console.log('fittext: ', this.fittext);
         this.compressor = isNaN(this.fittext) ? config.compressor : this.fittext;
         this.min = this.fittextMin || config.min;
         this.max = this.fittextMax || config.max;
-        this.minFontSize = this.min === 'inherit' ? this.computed['font-size'] : this.min;
-        this.maxFontSize = this.max === 'inherit' ? this.computed['font-size'] : this.max;
-        this.lineHeight = this.computed['line-height'];
-        this.display = this.computed['display'];
         this.calcSize = 10;
         var timer = window.setInterval(function () {
             _this.resizer();
             window.clearInterval(timer);
         }, this.loadDelay);
-        this.resizer();
     };
     NgFitTextDirective.prototype.calculate = function () {
+        this.computed = window.getComputedStyle(this.domElem, null);
+        this.minFontSize = this.min === 'inherit' ? this.computed['font-size'] : this.min;
+        this.maxFontSize = this.max === 'inherit' ? this.computed['font-size'] : this.max;
+        this.lineHeight = this.computed['line-height'];
+        this.display = this.computed['display'];
         var ratio = (this.calcSize * this.newlines) / this.domElem.offsetWidth / this.newlines;
         return Math.max(Math.min((this.parent.offsetWidth - 6) * ratio * this.compressor, parseFloat(this.maxFontSize)), parseFloat(this.minFontSize));
     };
     NgFitTextDirective.prototype.ngOnChanges = function () {
-        this.resizer();
+        //this.resizer();
     };
     NgFitTextDirective.prototype.onResize = function (event) {
         this.resizer();
@@ -57423,7 +57423,7 @@ var NgFitTextDirective = (function () {
         __metadata('design:type', Object)
     ], NgFitTextDirective.prototype, "fittextLoadDelay", void 0);
     __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Input */])(), 
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Input */])('ratio'), 
         __metadata('design:type', Object)
     ], NgFitTextDirective.prototype, "fittext", void 0);
     __decorate([
@@ -60523,7 +60523,7 @@ process.umask = function() { return 0; };
 /* 635 */
 /***/ function(module, exports) {
 
-module.exports = ":host {\n  width: 90%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  margin: 0 5%; }\n\nh1 {\n  white-space: nowrap; }\n\nh1, h2 {\n  text-transform: uppercase; }\n\nh2 {\n  font-size: 2.5em; }\n\n@-webkit-keyframes blink {\n  0% {\n    opacity: 0; }\n  100% {\n    opacity: 1; } }\n\n@keyframes blink {\n  0% {\n    opacity: 0; }\n  100% {\n    opacity: 1; } }\n\nfooter {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex; }\n  footer > div {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    margin: 20px;\n    width: 30%;\n    position: relative; }\n    footer > div:hover .title {\n      -webkit-animation: blink 0.2s alternate infinite;\n              animation: blink 0.2s alternate infinite; }\n    footer > div .title {\n      font-size: 4em; }\n    footer > div ul {\n      padding: 0;\n      list-style: none; }\n      footer > div ul li {\n        font-size: 1.5em;\n        cursor: pointer; }\n        footer > div ul li:hover {\n          -webkit-animation: blink 0.5s alternate infinite;\n                  animation: blink 0.5s alternate infinite; }\n"
+module.exports = ":host {\n  width: 90%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  margin: 0 5%; }\n\nh1 {\n  white-space: nowrap; }\n\nh1, h2 {\n  text-transform: uppercase; }\n\nh2 {\n  font-size: 2.5em; }\n\n@-webkit-keyframes blink {\n  0% {\n    opacity: 0; }\n  100% {\n    opacity: 1; } }\n\n@keyframes blink {\n  0% {\n    opacity: 0; }\n  100% {\n    opacity: 1; } }\n\nfooter {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  width: 100%; }\n  footer > div {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    margin: 20px;\n    width: 30%;\n    position: relative; }\n    footer > div:hover .title {\n      -webkit-animation: blink 0.2s alternate infinite;\n              animation: blink 0.2s alternate infinite; }\n    footer > div .title {\n      font-size: 4em; }\n    footer > div ul {\n      padding: 0;\n      list-style: none; }\n      footer > div ul li {\n        width: 100%;\n        font-size: 1.5em;\n        cursor: pointer; }\n        footer > div ul li:hover {\n          -webkit-animation: blink 0.5s alternate infinite;\n                  animation: blink 0.5s alternate infinite; }\n"
 
 /***/ },
 /* 636 */
@@ -60541,7 +60541,7 @@ module.exports = "<router-outlet></router-outlet>\n"
 /* 638 */
 /***/ function(module, exports) {
 
-module.exports = "<h1 ngFitText>\n  Maryse Poulvet\n</h1>\n\n<h2 ngFitText>blabla bla blablabla bla blabla bla bla blablabla blablabla</h2>\n<h2 ngFitText>bla blabla blablablablabla blabla</h2>\n<h2 ngFitText>blabla blablabla bla bla bla blablablabla</h2>\n\n<img src=\"../../assets/img/DDC7.jpg\" alt=\"bla\">\n\n\n\n<h2 ngFitText>blabla bla blablabla bla blabla bla bla blablabla blablabla</h2>\n<h2 ngFitText>bla blabla blablablablabla blabla</h2>\n<h2 ngFitText>blabla blablabla bla bla bla blablablabla</h2>\n\n\n\n<h2 ngFitText>blabla bla blablabla bla blabla bla bla blablabla blablabla</h2>\n<h2 ngFitText>bla blabla blablablablabla blabla</h2>\n<h2 ngFitText>blabla blablabla bla bla bla blablablabla</h2>\n\n\n<footer>\n  <div>\n    <p class=\"title\">contacts</p>\n    <ul>\n      <li>blabla</li>\n      <li>bla</li>\n    </ul>\n  </div>\n  <div>\n    <p class=\"title\">social</p>\n    <ul>\n      <li>bla</li>\n      <li>blablabla</li>\n      <li>blabla</li>\n    </ul>\n  </div>\n  <div>\n    <p class=\"title\">projets</p>\n    <ul>\n      <li>blablabla</li>\n      <li>blabla</li>\n      <li>blablabla</li>\n      <li>blabla</li>\n      <li>blablabla</li>\n      <li>blabla</li>\n      <li>blablabla</li>\n      <li>blabla</li>\n    </ul>\n  </div>\n</footer>\n"
+module.exports = "<h1>\n  Maryse Poulvet\n</h1>\n\n<h2>blabla bla blablabla bla blabla bla bla blablabla blablabla</h2>\n<h2>bla blabla blablablablabla blabla</h2>\n<h2>blabla blablabla bla bla bla blablablabla</h2>\n\n<img src=\"../../assets/img/DDC7.jpg\" alt=\"bla\">\n\n\n\n<h2>blabla bla blablabla bla blabla bla bla blablabla blablabla</h2>\n<h2>bla blabla blablablablabla blabla</h2>\n<h2>blabla blablabla bla bla bla blablablabla</h2>\n\n\n\n<h2>blabla bla blablabla bla blabla bla bla blablabla blablabla</h2>\n<h2>bla blabla blablablablabla blabla</h2>\n<h2>blabla blablabla bla bla bla blablablabla</h2>\n\n\n<footer>\n  <div>\n    <span ngFitText ratio=\"3\" class=\"title\">contacts</span>\n    <ul>\n      <li ngFitText ratio=\"2\">blabla</li>\n      <li ngFitText ratio=\"2\">bla</li>\n    </ul>\n  </div>\n  <div>\n    <span ngFitText ratio=\"3\" class=\"title\">social</span>\n    <ul>\n      <li ngFitText ratio=\"2\">bla</li>\n      <li ngFitText ratio=\"2\">blablabla</li>\n      <li ngFitText ratio=\"2\">blabla</li>\n    </ul>\n  </div>\n  <div>\n    <span ngFitText ratio=\"3\" class=\"title\">projets</span>\n    <ul>\n      <li ngFitText ratio=\"2\">blablabla</li>\n      <li ngFitText ratio=\"2\">blabla</li>\n      <li ngFitText ratio=\"2\">blablabla</li>\n      <li ngFitText ratio=\"2\">blabla</li>\n      <li ngFitText ratio=\"2\">blablabla</li>\n      <li ngFitText ratio=\"2\">blabla</li>\n      <li ngFitText ratio=\"2\">blablabla</li>\n      <li ngFitText ratio=\"2\">blabla</li>\n    </ul>\n  </div>\n</footer>\n"
 
 /***/ },
 /* 639 */
